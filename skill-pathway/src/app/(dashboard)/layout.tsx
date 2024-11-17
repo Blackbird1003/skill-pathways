@@ -3,8 +3,8 @@ import { Navbar } from "./_components/navbar";
 
 const DashbordLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="h-full">
-      <div className="fixed z-50 h-[80px] w-full md:pl-56">
+    <div className="h-screen">
+      <div className="sticky z-50 h-[80px] w-full md:pl-56">
         <Navbar />
       </div>
       <div className="hidden md:flex h-full w-56 flex-col fixed inset-y-0 z-50">

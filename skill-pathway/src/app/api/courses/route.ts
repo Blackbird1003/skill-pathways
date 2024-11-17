@@ -1,10 +1,15 @@
+
+ 
+
 import { db } from '@/lib/db';
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuth } from '@clerk/nextjs/server';
+import { isTeacher } from '@/lib/teacher';
 
-export async function POST(request: NextRequest) { // Change Request to NextRequest
+export async function POST(request: NextRequest) {
   try {
-    const { userId } = getAuth(request); // Use getAuth to get user info from the request
+    const { userId } = getAuth(request);
+    console.log("User ID:", userId);
     const { title } = await request.json();
 
     if (!userId) {
@@ -20,7 +25,7 @@ export async function POST(request: NextRequest) { // Change Request to NextRequ
 
     return NextResponse.json(course);
   } catch (error) {
-    console.log('[COURSES]', error);
+    console.error('[COURSES] Internal Server Error:', error);
     return new NextResponse('Internal Error', { status: 500 });
   }
 }

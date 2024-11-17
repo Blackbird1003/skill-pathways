@@ -20,17 +20,13 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const formSchema = z.object({
-  title: z.string().min(1, {
-    message: "Title is required",
-  }),
+  title: z.string().min(1, { message: "Title is required" }),
 });
 
 const CreatePage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: "",
-    },
+    defaultValues: { title: "" },
   });
 
   const router = useRouter();
@@ -41,7 +37,8 @@ const CreatePage = () => {
       const response = await axios.post("/api/courses", data);
       router.push(`/teacher/courses/${response.data.id}`);
       toast.success("Successfully created!");
-    } catch {
+    } catch (error) {
+      console.error("Error creating course:", error); // Better error logging
       toast.error("Something went wrong");
     }
   };
@@ -51,8 +48,8 @@ const CreatePage = () => {
       <div>
         <h1 className="text-2xl">Name your course</h1>
         <p className="text-sm text-slate-600">
-          How would you like to name your course? Don&apos;t worry, you can
-          change this later.
+          How would you like to name your course? Don't worry, you can change
+          this later.
         </p>
         <Form {...form}>
           <form
@@ -95,4 +92,5 @@ const CreatePage = () => {
     </div>
   );
 };
+
 export default CreatePage;

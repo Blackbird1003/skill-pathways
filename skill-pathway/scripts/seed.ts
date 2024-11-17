@@ -10,9 +10,9 @@ async function main() {
         { name: 'Music' },
         { name: 'Fitness' },
         { name: 'Photography' },
-        { name: 'handworks' },
+        { name: 'Accounting' },
         { name: 'Education' },
-        { name: 'Others' },
+        { name: 'Filming' },
       ],
     });
     console.log('Database categories seeded');

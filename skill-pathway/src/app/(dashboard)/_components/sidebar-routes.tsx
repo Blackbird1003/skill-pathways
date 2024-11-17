@@ -31,9 +31,6 @@ export const SidebarRoutes = () => {
           href={route.href}
         />
       ))}
-      <Link href="/teacher/create">
-        <Button>New Course</Button>
-      </Link>
     </div>
   );
 };
