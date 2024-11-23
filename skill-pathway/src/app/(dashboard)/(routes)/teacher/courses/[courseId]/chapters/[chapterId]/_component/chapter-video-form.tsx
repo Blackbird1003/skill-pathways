@@ -24,7 +24,6 @@ export const ChapterVideoForm = ({
   const [isEditing, setIsEditing] = useState(false);
 
   const router = useRouter();
-
   const toggleIsEditing = () => setIsEditing((current) => !current);
 
   const onSubmit = async (values: { videoUrl: string }) => {
