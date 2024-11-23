@@ -1,7 +1,5 @@
 "use client";
 
-import { Editor } from "@/components/editor";
-import { Preview } from "@/components/preview";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -11,7 +9,6 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormMessage,
 } from "@/components/ui/form";
 
 import { cn } from "@/lib/utils";
@@ -43,8 +40,6 @@ const ChapterAccessForm = ({
   chapterId,
 }: ChapterAccessFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
-
-  const toggleEdit = () => setIsEditing((current) => !current);
 
   const router = useRouter();
 

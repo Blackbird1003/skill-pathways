@@ -1,29 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { PencilIcon, PlusCircle, VideoIcon } from "lucide-react";
-import MuxPlayer from "@mux/mux-player-react";
-import axios from "axios";
-import toast from "react-hot-toast";
 import FileUpload from "@/components/file-upload";
+import { Button } from "@/components/ui/button";
+import MuxPlayer from "@mux/mux-player-react";
 import { Chapter, MuxData } from "@prisma/client";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import axios from "axios";
+import { PencilIcon, PlusCircle, VideoIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface ChapterVideoFormProps {
   initialData: Chapter & { muxData?: MuxData | null };
   courseId: string;
   chapterId: string;
 }
-
-const formSchema = z.object({
-  videoUrl: z.string().min(1),
-});
-
-type ChapterVideoFormSchemaType = z.infer<typeof formSchema>;
 
 export const ChapterVideoForm = ({
   initialData,
@@ -33,15 +24,6 @@ export const ChapterVideoForm = ({
   const [isEditing, setIsEditing] = useState(false);
 
   const router = useRouter();
-
-  const form = useForm<ChapterVideoFormSchemaType>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      videoUrl: initialData.videoUrl,
-    },
-  });
-
-  const { isValid, isSubmitting } = form.formState;
 
   const toggleIsEditing = () => setIsEditing((current) => !current);
 

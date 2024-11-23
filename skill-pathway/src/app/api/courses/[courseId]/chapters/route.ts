@@ -1,5 +1,5 @@
 import { db } from '@/lib/db';
-import { useAuth } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 
 interface ContextProps {
@@ -10,7 +10,7 @@ interface ContextProps {
 
 export async function POST(request: NextRequest, { params }: ContextProps) {
   try {
-    const { userId } = useAuth();
+    const { userId } = await auth();
     const { chapterTitle } = await request.json();
 
     if (!userId) {

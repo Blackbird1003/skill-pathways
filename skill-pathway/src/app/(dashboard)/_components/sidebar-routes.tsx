@@ -3,9 +3,6 @@ import { Layout, Compass, BarChart, List } from "lucide-react";
 import { SidebarItem } from "./sidebar-item";
 import { usePathname } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-
 const guestRoutes = [
   { icon: Layout, label: "Dashboard", href: "/" },
   { icon: Compass, label: "Search", href: "/search" },

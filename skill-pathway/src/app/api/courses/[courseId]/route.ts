@@ -16,8 +16,6 @@ interface ContextProps {
 export async function DELETE(request: NextRequest, { params }: ContextProps) {
   try {
     const { userId } = await auth();
-    const { courseId } = params;
-    const values = await request.json();
 
     if (!userId || !isTeacher(userId)) {
       return new NextResponse('Unauthorized', { status: 401 });
@@ -64,7 +62,6 @@ export async function DELETE(request: NextRequest, { params }: ContextProps) {
 export async function PATCH(request: NextRequest, { params }: ContextProps) {
   try {
     const { userId } = await auth();
-    const { courseId } = params;
     const values = await request.json();
 
     if (!userId || !isTeacher(userId)) {

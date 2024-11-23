@@ -1,13 +1,14 @@
-import { useAuth } from "@clerk/nextjs";
+
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { auth } from "@clerk/nextjs/server";
 
 export async function PUT(
 req: Request,
 {params}: {params: {courseId: string}}
 ){
     try {
-       const { userId } = useAuth();
+       const { userId } = await auth();
 
        if(!userId){
         return new NextResponse("Unauthorized", {status: 401});
@@ -21,7 +22,7 @@ req: Request,
         }
        });
 
-       for(let item of List){
+       for(const item of List){
         await db.chapter.update({
             where: {id: item.id},
             data: {position: item.position}

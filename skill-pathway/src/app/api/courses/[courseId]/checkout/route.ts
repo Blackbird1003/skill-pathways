@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server';
 
 import { db } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
-import { isTeacher } from "@/lib/teacher";
 
 export async function POST(
   req: Request,

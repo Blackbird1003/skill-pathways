@@ -6,13 +6,10 @@ import { CheckCircle, Clock } from "lucide-react";
 import { InfoCard } from "./_components/info-card";
 
 import ReAuth from "@/lib/reauth";
-import { isTeacher } from "@/lib/teacher";
 
 export default async function Dashboard() {
   try {
     const { userId } = await auth();
-
-    const isAutorized = isTeacher(userId);
 
     // if (!userId) {
     //   return redirect("/");

@@ -1,9 +1,7 @@
-import { db } from "@/lib/db";
-import type { Category, Chapter, Course } from "@prisma/client";
 import { getProgress } from "@/actions/get-progress";
-import { currentUser } from "@clerk/nextjs/server";
+import { db } from "@/lib/db";
 import { isTeacher } from "@/lib/teacher";
-import { redirect } from "next/navigation";
+import type { Category, Chapter, Course } from "@prisma/client";
 // import { auth, currentUser } from '@clerk/nextjs/server';
 
 type CourseWithProgressWithCategory = Course & {
@@ -51,7 +49,7 @@ export const getDashboardCourses = async (
       (purchase) => purchase.course
     ) as CourseWithProgressWithCategory[];
 
-    for (let course of courses) {
+    for (const course of courses) {
       const progress = await getProgress(userId, course.id);
       course["progress"] = progress;
     }

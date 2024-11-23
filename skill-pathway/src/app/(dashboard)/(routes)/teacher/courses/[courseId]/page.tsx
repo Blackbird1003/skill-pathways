@@ -1,6 +1,5 @@
 import { IconBadge } from "@/components/icon-badge";
 import { db } from "@/lib/db";
-import { useAuth } from "@clerk/nextjs";
 import {
   CircleDollarSign,
   File,
@@ -17,6 +16,7 @@ import AttachmentForm from "./_component/attachment-form";
 import ChaptersForm from "./_component/chapter-form";
 import Banner from "@/components/banner";
 import { Actions } from "./_component/action";
+import { auth } from "@clerk/nextjs/server";
 
 interface CourseIdProps {
   params: {
@@ -26,7 +26,7 @@ interface CourseIdProps {
 
 const CourseIdPage = async ({ params }: CourseIdProps) => {
   const { courseId } = params;
-  const { userId } = useAuth();
+  const { userId } = await auth();
 
   const course = await db.course.findUnique({
     where: { id: courseId },
@@ -59,7 +59,7 @@ const CourseIdPage = async ({ params }: CourseIdProps) => {
   ).length;
 
   const completionText = `(${completedFields}/${totalFields})`;
-    const isComplete = requiredFields.every(Boolean);
+  const isComplete = requiredFields.every(Boolean);
 
   return (
     <>
@@ -75,10 +75,10 @@ const CourseIdPage = async ({ params }: CourseIdProps) => {
               Complete all fields {completionText}
             </span>
           </div>
-          <Actions 
-          disabled={!isComplete}
-          courseId={params.courseId}
-          isPublished={course.isPublished}
+          <Actions
+            disabled={!isComplete}
+            courseId={params.courseId}
+            isPublished={course.isPublished}
           />
         </div>
         <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">

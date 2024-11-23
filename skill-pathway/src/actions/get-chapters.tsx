@@ -1,6 +1,5 @@
-import { Combobox } from "@/components/ui/combobox";
 import { db } from "@/lib/db";
-import { Attachment, Purchase, Chapter, MuxData } from "@prisma/client";
+import { Attachment, Chapter } from "@prisma/client";
 
 interface GetChapterProps {
   userId: string;

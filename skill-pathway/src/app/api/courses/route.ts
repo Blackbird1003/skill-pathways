@@ -4,7 +4,7 @@
 import { db } from '@/lib/db';
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuth } from '@clerk/nextjs/server';
-import { isTeacher } from '@/lib/teacher';
+
 
 export async function POST(request: NextRequest) {
   try {

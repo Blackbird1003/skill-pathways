@@ -98,8 +98,8 @@ export async function DELETE(request: Request, { params }: ContextProps) {
 
 export async function PATCH(request: Request, { params }: ContextProps) {
   try {
-    const { userId } = useAuth();
-    const { isPublished, ...values } = await request.json();
+    const { userId } = await auth();
+    const {  ...values } = await request.json();
 
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });

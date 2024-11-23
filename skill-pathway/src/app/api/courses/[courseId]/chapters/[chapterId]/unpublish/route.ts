@@ -27,12 +27,7 @@ export async function PATCH(request: Request, { params }: ContextProps) {
     if (!ownCourse) {
       return new NextResponse('Not Found', { status: 404 });
     }
-    const chapter = await db.chapter.findUnique({
-        where: {
-            id: params.chapterId,
-            courseId: params.courseId,
-        }
-    })
+   
 
 
 

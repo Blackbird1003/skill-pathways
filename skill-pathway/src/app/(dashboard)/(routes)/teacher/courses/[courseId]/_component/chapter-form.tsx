@@ -76,10 +76,6 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
     }
   };
 
-  const onEdit = (id: string) => {
-    router.push(`/teacher/courses/${courseId}/chapters/${id}`);
-  }
-
   return (
     <div className="relative mt-6 rounded-md border bg-slate-100 p-4">
       {isUpdating && (

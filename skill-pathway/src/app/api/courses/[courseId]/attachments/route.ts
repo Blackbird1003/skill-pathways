@@ -1,6 +1,5 @@
 import { db } from '@/lib/db';
 import { isTeacher } from '@/lib/teacher';
-import { useAuth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
 interface ContextProps {
@@ -9,7 +8,7 @@ interface ContextProps {
 
 export async function POST(request: Request, { params }: ContextProps) {
   try {
-    const { userId } = useAuth();
+    const { userId } = await auth();
     const { url } = await request.json();
 
     if (!userId || !isTeacher(userId)) {

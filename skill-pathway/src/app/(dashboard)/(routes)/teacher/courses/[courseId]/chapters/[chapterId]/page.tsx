@@ -1,7 +1,6 @@
 import Banner from "@/components/banner";
 import { IconBadge } from "@/components/icon-badge";
 import { db } from "@/lib/db";
-import { useAuth } from "@clerk/nextjs";
 import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -10,6 +9,7 @@ import { ChapterActions } from "./_component/chapter-actions";
 import ChapterDescriptionForm from "./_component/chapter-description-form";
 import ChapterTitleForm from "./_component/chapter-title-form";
 import ChapterVideoForm from "./_component/chapter-video-form";
+import { auth } from "@clerk/nextjs/server";
 
 interface ChapterIdPageProps {
   params: {
@@ -19,8 +19,7 @@ interface ChapterIdPageProps {
 }
 
 const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
-  const { courseId, chapterId } = params;
-  const { userId } = useAuth();
+  const { userId } = await auth();
 
   const chapter = await db.chapter.findUnique({
     where: {

@@ -48,8 +48,8 @@ const CreatePage = () => {
       <div>
         <h1 className="text-2xl">Name your course</h1>
         <p className="text-sm text-slate-600">
-          How would you like to name your course? Don't worry, you can change
-          this later.
+          How would you like to name your course? Don`&apos;t worry, you can
+          change this later.
         </p>
         <Form {...form}>
           <form
