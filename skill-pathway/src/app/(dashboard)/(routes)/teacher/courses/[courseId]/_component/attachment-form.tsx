@@ -36,7 +36,6 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
     try {
       setDeletingId(id);
       await axios.delete(`/api/courses/${courseId}/attachments/${id}`);
-
       toast.success("Attachment deleted");
       router.refresh();
     } catch {

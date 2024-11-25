@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Combobox } from "@/components/ui/combobox";
 import {
   Form,
   FormControl,
@@ -9,9 +8,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-
 import { cn } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { PencilIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -19,20 +16,21 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
+import { Course } from "@prisma/client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Combobox } from "@/components/ui/combobox";
 
 interface CategoryFormProps {
-  initialData: {
-    categoryId: string | null;
-  };
+  initialData: Course;
   courseId: string;
-  categories: { name: string; id: string }[];
+  categories: { label: string; value: string }[];
 }
 
-const categoryFormSchema = z.object({
-  categoryId: z.string().trim().min(1, "Category is required"),
+const CategoryFormSchema = z.object({
+  categoryId: z.string().trim().min(1),
 });
 
-type CategoryFormSchemaType = z.infer<typeof categoryFormSchema>;
+type CategoryFormSchemaType = z.infer<typeof CategoryFormSchema>;
 
 const CategoryForm = ({
   initialData,
@@ -46,7 +44,7 @@ const CategoryForm = ({
     mode: "onBlur",
     defaultValues: { categoryId: initialData?.categoryId || "" },
 
-    resolver: zodResolver(categoryFormSchema),
+    resolver: zodResolver(CategoryFormSchema),
   });
 
   const { isValid, isSubmitting } = form.formState;
@@ -64,14 +62,14 @@ const CategoryForm = ({
     }
   };
 
-  const selectedCategory = categories.find(
-    (category) => category.id === initialData.categoryId
-  )?.name;
+  const selectedCategorie = categories.find(
+    (category) => category.value === initialData.categoryId
+  )?.label;
 
   return (
     <div className="mt-6 rounded-md border bg-slate-100 p-4">
       <div className="flex items-center justify-between font-medium">
-        Course category
+        Course Category
         <Button variant={"ghost"} onClick={toggleIsEditing}>
           {isEditing ? (
             "Cancel"
@@ -87,10 +85,10 @@ const CategoryForm = ({
         <p
           className={cn(
             "mt-2 text-sm",
-            !initialData.categoryId && "italic text-slate-500"
+            !selectedCategorie && "italic text-slate-500"
           )}
         >
-          {selectedCategory ?? "No category"}
+          {selectedCategorie || "No category selected"}
         </p>
       )}
       {isEditing && (
@@ -106,12 +104,11 @@ const CategoryForm = ({
                 <FormItem>
                   <FormControl>
                     <Combobox
-                      options={categories.map((categorie) => ({
-                        label: categorie.name,
-                        value: categorie.id,
-                      }))}
-                      value={field.value}
-                      onChange={field.onChange}
+                      categories={categories.map((category) => ({
+                        label: category.label,
+                        value: category.value,
+                      }))} // Pass the categories array
+                      {...field} // Handle value changes
                     />
                   </FormControl>
                   <FormMessage />

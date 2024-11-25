@@ -43,6 +43,7 @@ const CourseIdPage = async ({ params }: CourseIdProps) => {
   const categories = await db.category.findMany({
     orderBy: { name: "asc" },
   });
+  console.log(categories);
 
   const requiredFields = [
     course.title,
@@ -94,7 +95,10 @@ const CourseIdPage = async ({ params }: CourseIdProps) => {
             <CategoryForm
               initialData={course}
               courseId={course.id}
-              categories={categories}
+              categories={categories.map((category) => ({
+                label: category.name,
+                value: category.id,
+              }))}
             />
           </div>
           {/* Section `Customize your course` ends */}

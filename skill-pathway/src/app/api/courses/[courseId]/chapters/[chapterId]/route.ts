@@ -19,7 +19,7 @@ interface ContextProps {
 
 export async function DELETE(request: Request, { params }: ContextProps) {
   try {
-    const { userId } = auth();
+    const { userId } =await auth();
 
     if (!userId || !isTeacher(userId)) {
       return new NextResponse('Unauthorized', { status: 401 });
